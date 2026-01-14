@@ -1,1 +1,251 @@
-# NoisePrediction
+# Street View Noise Prediction System - DINOv3
+
+A deep learning-based system for predicting environmental noise levels from street view images using DINOv3 features and machine learning models.
+
+## Overview
+
+This project predicts noise pollution levels from street view imagery by:
+1. Extracting visual features using Facebook's DINOv3 vision transformer
+2. Processing features through trained preprocessing pipelines
+3. Predicting noise levels using various machine learning models (KNN, Random Forest, XGBoost, etc.)
+
+## Project Structure
+
+NoiseMap/
+├── predict_noise.py              # Main prediction script
+├── Train and Experiment.ipynb    # Model training notebook
+├── README.md                      # This file
+│
+├── test_images/                   # Input images for prediction (create this folder)
+│   └── [your images here]
+│
+├── predictions.csv                # Output predictions (generated)
+│
+└── saved_models/                  # Pre-trained models
+    ├── predictor_complete.pkl    # Complete predictor (optional)
+    │
+    ├── Mean_Noise/               # Mean noise level models
+    ├── Low_Freq/                 # Low frequency noise models
+    ├── Mid_Freq/                 # Mid frequency noise models
+    └── High_Freq/                # High frequency noise models
+        │
+        ├── street/               # Street view-based models
+        ├── remote/               # Remote sensing-based models
+        └── fusion/               # Multi-modal fusion models
+            │
+            ├── KNN_model.pkl
+            ├── KNN_preprocessors.pkl
+            ├── KNN_info.pkl
+            │
+            ├── Random Forest_model.pkl
+            ├── Random Forest_preprocessors.pkl
+            ├── Random Forest_info.pkl
+            │
+            └── [other models...]
+
+
+## Prediction Categories
+
+### Noise Types
+- Mean_Noise: Overall average noise level
+- Low_Freq: Low frequency noise (e.g., traffic rumble)
+- Mid_Freq: Mid frequency noise (e.g., conversation)
+- High_Freq: High frequency noise (e.g., brakes, horns)
+
+### Data Sources
+- street: Street view image features only
+- remote: Remote sensing data only
+- fusion: Combined street view + remote sensing
+
+### Available Models
+- KNN: K-Nearest Neighbors
+- Random Forest: Random Forest Regressor
+- Gradient Boosting: Gradient Boosting Regressor
+- XGBoost: XGBoost Regressor
+- LightGBM: LightGBM Regressor
+- SVR: Support Vector Regressor
+- Lasso: Lasso Regression
+- Stacking: Stacked ensemble model
+- Voting: Voting ensemble model
+
+## Quick Start
+
+### Prerequisites
+
+pip install torch torchvision transformers
+pip install numpy pandas scikit-learn joblib pillow tqdm
+pip install xgboost lightgbm
+pip install huggingface_hub
+
+### Basic Usage
+
+1. Prepare your images:
+
+mkdir test_images
+# Copy your street view images to test_images/
+
+2. Configure the prediction script:
+
+Edit predict_noise.py to set your preferences:
+
+IMAGE_FOLDER = "test_images"
+OUTPUT_FILE = "predictions.csv"
+MODEL_PATH = "saved_models/Mean_Noise/street/KNN_model.pkl"
+PREPROCESSOR_PATH = "saved_models/Mean_Noise/street/KNN_preprocessors.pkl"
+HF_TOKEN = 'your_huggingface_token_here'
+
+3. Run prediction:
+
+python predict_noise.py
+
+4. View results:
+
+image_name: Image filename
+mean_noise_dB: Predicted noise level in decibels
+noise_level: Category (Quiet/Rather Quiet/Moderate/Rather Noisy/Noisy)
+📊 Noise Level Categories
+Category	dB Range	Description
+Quiet	< 50 dB	Very peaceful environment
+Rather Quiet	50-60 dB	Residential areas
+Moderate	60-70 dB	Normal urban areas
+Rather Noisy	70-80 dB	Busy streets
+Noisy	> 80 dB	Heavy traffic/industrial
+
+## Advanced Configuration
+
+### Switching Models
+
+To use a different model, update the paths in predict_noise.py:
+
+# Example: Using XGBoost for High Frequency noise with fusion data
+MODEL_PATH = "saved_models/High_Freq/fusion/XGBoost_model.pkl"
+PREPROCESSOR_PATH = "saved_models/High_Freq/fusion/XGBoost_preprocessors.pkl"
+
+### Batch Processing
+
+The script automatically processes all images in the specified folder:
+- Supported formats: .jpg, .jpeg, .png, .bmp, .tiff, .tif
+- Images are processed sequentially with progress tracking
+- Failed images are skipped with error messages
+
+## Model Training
+
+To train your own models, use the Jupyter notebook:
+
+jupyter notebook "Train and Experiment.ipynb"
+
+The notebook includes:
+- Data loading and preprocessing
+- Feature extraction with DINOv3
+- Model training and hyperparameter tuning
+- Cross-validation and evaluation
+- Model saving and export
+
+## Example Output
+
+Using device: cuda
+
+Loading DINOv3 model: facebook/dinov3-vitb16-pretrain-lvd1689m
+✓ DINOv3 model loaded successfully
+
+Loading KNN model and preprocessors...
+✓ KNN model loaded successfully
+
+Found 150 images
+============================================================
+
+Extracting DINOv3 features...
+Processing images: 100%|████████████| 150/150 [02:15<00:00,  1.11it/s]
+Extracted feature dimensions: (150, 768)
+
+Applying preprocessing pipeline:
+  Initial dimensions: (150, 768)
+  [1/3] Scaling (768-dim)... → (150, 768)
+  [2/3] Feature selection (300-dim)... → (150, 300)
+  [3/3] PCA reduction (148-dim)... → (150, 148)
+  Final dimensions: (150, 148)
+
+Executing prediction...
+
+============================================================
+Prediction completed!
+============================================================
+
+Statistics:
+  Successfully processed: 150 images
+  Mean noise: 65.34 dB
+  Std dev:    8.12 dB
+  Min value:  48.22 dB
+  Max value:  82.45 dB
+  Median:     64.80 dB
+
+Noise level distribution:
+  Quiet        :  12 images (  8.0%)
+  Rather Quiet :  35 images ( 23.3%)
+  Moderate     :  58 images ( 38.7%)
+  Rather Noisy :  32 images ( 21.3%)
+  Noisy        :  13 images (  8.7%)
+
+Full results saved to: predictions.csv
+
+## HuggingFace Token
+
+To use DINOv3, you need a HuggingFace token:
+
+1. Create account at https://huggingface.co
+2. Go to Settings → Access Tokens
+3. Create a new token with read permissions
+4. Add to predict_noise.py:
+
+HF_TOKEN = 'hf_YourTokenHere'
+
+## Technical Details
+
+### Feature Extraction Pipeline
+1. DINOv3 Encoding: Images → 768-dimensional feature vectors
+2. Standardization: Z-score normalization
+3. Feature Selection: Select 300 most important features
+4. PCA: Reduce to 148 dimensions
+
+### Model Files
+Each model configuration includes three files:
+- *_model.pkl: Trained model weights
+- *_preprocessors.pkl: Feature preprocessing pipeline
+- *_info.pkl: Training metadata and performance metrics
+
+## Troubleshooting
+
+### CUDA Out of Memory
+# Switch to CPU
+self.device = torch.device('cpu')
+
+### Model Loading Error
+- Verify file paths exist
+- Check pickle compatibility with current scikit-learn version
+- Ensure all required libraries are installed
+
+### Feature Dimension Mismatch
+- The preprocessing order is critical: Scaling → Selection → PCA
+- Check preprocessor inspection output for expected dimensions
+
+## Citation
+
+If you use this system in your research, please cite:
+
+@software{noisemap2026,
+  title={Street View Noise Prediction System using DINOv3},
+  author={Your Name},
+  year={2026},
+  institution={The Chinese University of Hong Kong}
+}
+
+## Contact
+
+For questions or issues, please contact:
+Email: yanzhang@cuhk.edu.hk
+
+## License
+
+[Specify your license here]
+
+Last Updated: January 2026
