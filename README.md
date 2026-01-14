@@ -70,6 +70,11 @@ NoiseMap/
 
 ## Quick Start
 
+### Model
+
+https://huggingface.co/facebook/dinov3-vitl16-pretrain-sat493m
+https://huggingface.co/facebook/dinov3-vitb16-pretrain-lvd1689m
+
 ### Prerequisites
 
 pip install torch torchvision transformers
