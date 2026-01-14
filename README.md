@@ -241,11 +241,6 @@ If you use this system in your research, please cite:
 
 ## Contact
 
-For questions or issues, please contact:
 Email: yanzhang@cuhk.edu.hk
-
-## License
-
-[Specify your license here]
 
 Last Updated: January 2026
