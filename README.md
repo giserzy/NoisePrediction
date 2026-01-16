@@ -10,7 +10,7 @@ This project predicts noise pollution levels from street view imagery by:
 3. Predicting noise levels using various machine learning models (KNN, Random Forest, XGBoost, etc.)
 
 ## Result
-<img width="930" height="552" alt="10dc23f0-15e9-4427-958c-4604d6a68ffb" src="https://github.com/user-attachments/assets/6f9374f4-61d3-462f-8f03-d92c5a6ba3ad" />
+<img width="865" height="514" alt="image" src="https://github.com/user-attachments/assets/831c96b8-d55c-49bf-b125-d2ee8556e54e" />
 <img width="865" height="517" alt="image" src="https://github.com/user-attachments/assets/69862240-07d9-4b6c-9984-623215dbc152" />
 <img width="865" height="526" alt="image" src="https://github.com/user-attachments/assets/83a791d8-c6a0-4fc6-92e0-f1c90894715e" />
 <img width="865" height="527" alt="image" src="https://github.com/user-attachments/assets/74063e75-5dfc-474e-a8d7-c3d75227a4ec" />
