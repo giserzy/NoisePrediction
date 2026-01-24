@@ -1,4 +1,4 @@
-# Street View Noise Prediction System - DINOv3
+# Multi-frequency street-level urban noise modeling and mapping through street view and remote sensing image fusion - DINOv3
 
 A deep learning-based system for predicting environmental noise levels from street view images using DINOv3 features and machine learning models.
 
@@ -244,12 +244,17 @@ self.device = torch.device('cpu')
 
 If you use this system in your research, please cite:
 
-@software{noisemap2026,
-  title={Street View Noise Prediction System using DINOv3},
-  author={Your Name},
-  year={2026},
-  institution={The Chinese University of Hong Kong}
-}
+Yan Zhang, Entong Ke, Mei-Po Kwan, Libo Fang, Mingxiao Li,
+Multi-frequency street-level urban noise modeling and mapping through street view and remote sensing image fusion,
+Computers, Environment and Urban Systems,
+Volume 126,
+2026,
+102401,
+ISSN 0198-9715,
+https://doi.org/10.1016/j.compenvurbsys.2026.102401.
+(https://www.sciencedirect.com/science/article/pii/S0198971526000037)
+Abstract: Urban noise pollution has become the third most significant environmental health threat following air and water pollution, while traditional noise modeling methods suffer from limitations including high costs, limited coverage, and an exclusive focus on total decibel values while neglecting frequency characteristics. This study proposes a method that combines street view imagery (SVI) and remote sensing imagery (RSI) to achieve precise modeling and mapping of multi-frequency noise exposure at the urban street scale. Using Xiangzhou District, Zhuhai City as a case study, we utilized approximately 6000 street view images and corresponding remote sensing images, and recorded 35,276 street noise audios containing 23 frequency bands (100 Hz-16,000 Hz) through volunteer cycling surveys. A multi-source fusion model was constructed based on a pre-trained vision transformer architecture, with 923 valid street noise-image paired samples used for training and validation. The sensitivity results demonstrate that: (1) the proposed multimodal fusion model achieves high predictive accuracy, with R2 values for dBA prediction ranging from 0.417 to 0.649, with particularly higher accuracy observed for mid-frequency noise prediction; (2) 50-m resolution street-scale multi-frequency soundscape maps were successfully generated, providing scientific evidence for refined urban noise management; (3) explainable machine learning models revealed that buildings, roads, sidewalks, and terrain visual elements are the four most important factors affecting noise prediction, with road width showing a positive association with street noise levels. This study not only fills the gap in urban noise frequency characteristics research but also provides new methodological support for precise street-level noise pollution modeling and health-oriented urban planning. The source code is available at https://github.com/giserzy/NoisePrediction.
+Keywords: Noise exposure; Information fusion; Street view image; Noise modeling; Sensing bias
 
 ## Contact
 
