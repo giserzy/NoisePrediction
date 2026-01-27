@@ -2,6 +2,8 @@
 
 A deep learning-based system for predicting environmental noise levels from street view images using DINOv3 features and machine learning models.
 
+<span style="color:red;">More dataset and code will coming soon!</span>
+
 ## Overview
 
 This project predicts noise pollution levels from street view imagery by:
